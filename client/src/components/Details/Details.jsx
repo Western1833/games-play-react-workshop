@@ -26,6 +26,7 @@ export default function Details() {
             formData.get('comment')
             );
 
+        setComments(state => [...state, newComment]);
         return newComment;
     }
 
@@ -49,8 +50,8 @@ export default function Details() {
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul> 
-                        {comments.map(({username, text}) => (
-                            <li className="comment">
+                        {comments.map(({_id, username, text}) => (
+                            <li className="comment" key={_id}>
                                 <p>{username}: {text}</p>
                             </li>
                         ))}                       
