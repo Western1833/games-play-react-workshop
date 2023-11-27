@@ -5,4 +5,5 @@ export const paths = {
     logout: '/logout',
     login: '/login',
     register: '/register',
+    details: '/games/:gameId'
 }

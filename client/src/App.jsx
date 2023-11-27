@@ -6,6 +6,7 @@ import Header from "./components/Header/Header.jsx";
 import Home from "./components/Home/Home.jsx";
 import {Routes, Route} from 'react-router-dom';
 import { paths } from "./utils/apis.js";
+import Details from "./components/Details/Details.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path={paths.createGame} element={<CreateGame/>}/>
         <Route path={paths.login} element={<Login/>}/>
         <Route path={paths.register} element={<Register/>}/>
+        <Route path={paths.details} element={<Details/>}/>
       </Routes>
     </div>
   )

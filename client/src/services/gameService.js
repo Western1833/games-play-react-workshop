@@ -12,3 +12,8 @@ export async function allGames(){
 
     return Object.values(result);
 }
+
+export async function getOne(gameId){
+    const result = await request.get(baseUrl + '/' + gameId);
+    return result;
+}
