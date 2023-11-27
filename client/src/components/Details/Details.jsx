@@ -12,7 +12,7 @@ export default function Details() {
         gameService.getOne(gameId)
         .then(setGame)
 
-        getAll()
+        getAll(gameId)
         .then(setComments)
     }, [gameId]);
 
@@ -21,7 +21,7 @@ export default function Details() {
 
         const formData = new FormData(e.currentTarget);
 
-        const newComment = await create(gameId,
+        let newComment = await create(gameId,
             formData.get('username'),
             formData.get('comment')
             );
