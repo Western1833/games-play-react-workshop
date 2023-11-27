@@ -1,6 +1,6 @@
 export const paths = {
     homePage: '/',
-    gameList: '/gameList',
+    gameList: '/games',
     createGame: '/game-create',
     logout: '/logout',
     login: '/login',

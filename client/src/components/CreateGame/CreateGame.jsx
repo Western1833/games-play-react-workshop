@@ -2,6 +2,7 @@ import * as gameService from "../../services/gameService.js";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateGame() {
+    const navigate = useNavigate();
 
     const createGameSubmitHandler = async (e) => {
         e.preventDefault();
@@ -11,7 +12,7 @@ export default function CreateGame() {
         try {
             await gameService.create(gameData);
 
-            useNavigate('/games');
+            navigate('/games');
         } catch (err) {
             //sould show message to user for an error, to be done later
             console.log(err);
