@@ -5,6 +5,7 @@ import GameList from "./components/Game-list/GameList.jsx";
 import Header from "./components/Header/Header.jsx";
 import Home from "./components/Home/Home.jsx";
 import {Routes, Route} from 'react-router-dom';
+import { paths } from "./utils/apis.js";
 
 function App() {
   return (
@@ -12,11 +13,11 @@ function App() {
       <Header/>
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/games" element={<GameList/>}/>
-        <Route path="/game-create" element={<CreateGame/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path={paths.homePage} element={<Home/>}/>
+        <Route path={paths.gameList} element={<GameList/>}/>
+        <Route path={paths.createGame} element={<CreateGame/>}/>
+        <Route path={paths.login} element={<Login/>}/>
+        <Route path={paths.register} element={<Register/>}/>
       </Routes>
     </div>
   )
