@@ -1,10 +1,12 @@
 import { useForm } from "../../hooks/useFormHook.js";
 
-export default function Login(){
+export default function Login({
+    loginSubmitHandler
+}){
     const {values, onChange, onSubmit} = useForm({
         email: '',
         password: ''
-    });
+    }, loginSubmitHandler);
 
     return(
         <section id="login-page" className="auth">
