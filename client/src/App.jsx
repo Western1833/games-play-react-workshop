@@ -8,6 +8,7 @@ import {Routes, Route} from 'react-router-dom';
 import { paths } from "./utils/apis.js";
 import Details from "./components/Details/Details.jsx";
 import { useState } from "react";
+import AuthContext from "./contexts/authContext.js";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -18,16 +19,18 @@ function App() {
 
   return (
     <div id="box">
-      <Header/>
+      <AuthContext.Provider value={loginSubmitHandler}>
+        <Header/>
 
-      <Routes>
-        <Route path={paths.homePage} element={<Home/>}/>
-        <Route path={paths.gameList} element={<GameList/>}/>
-        <Route path={paths.createGame} element={<CreateGame/>}/>
-        <Route path={paths.login} element={<Login loginSubmitHandler={loginSubmitHandler}/>}/>
-        <Route path={paths.register} element={<Register/>}/>
-        <Route path={paths.details} element={<Details/>}/>
-      </Routes>
+        <Routes>
+          <Route path={paths.homePage} element={<Home/>}/>
+          <Route path={paths.gameList} element={<GameList/>}/>
+          <Route path={paths.createGame} element={<CreateGame/>}/>
+          <Route path={paths.login} element={<Login/>}/>
+          <Route path={paths.register} element={<Register/>}/>
+          <Route path={paths.details} element={<Details/>}/>
+        </Routes>
+      </AuthContext.Provider>
     </div>
   )
 }
