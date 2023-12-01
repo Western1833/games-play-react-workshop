@@ -6,6 +6,15 @@ function buildOptions(data){
         options.headers = {'content-type': 'application-json'}
     }
 
+    const token = sessionStorage.getItem('accessToken');
+
+    if(token){
+        options.headers = {
+            ...options.headers,
+            'X-Authorization': token
+        };
+    }
+
     return options;
 }
 
@@ -14,6 +23,10 @@ async function request(method, url, data){
         ...buildOptions(data),
         method,
     });
+
+    if(response.status === 204){
+        return {};
+    }
 
     const result = await response.json();
     return result;

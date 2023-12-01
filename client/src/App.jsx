@@ -1,4 +1,5 @@
 import Login from "./components/Authentication/Login.jsx";
+import Logout from "./components/Authentication/Logout.jsx";
 import Register from "./components/Authentication/Register.jsx";
 import CreateGame from "./components/CreateGame/CreateGame.jsx";
 import GameList from "./components/Game-list/GameList.jsx";
@@ -10,7 +11,6 @@ import Details from "./components/Details/Details.jsx";
 import { useState } from "react";
 import AuthContext from "./contexts/authContext.js";
 import * as authService from '../src/services/authService.js';
-import Path from "./paths.js";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -21,7 +21,9 @@ function App() {
 
     setAuth(result);
 
-    navigate(Path.Home);
+    sessionStorage.setItem('accessToken', result.accessToken);
+
+    navigate(paths.homePage);
   }
 
   const registerSubmitHandler = async (values) => {
@@ -29,12 +31,23 @@ function App() {
 
     setAuth(result);
 
-    navigate(Path.Home);
+    sessionStorage.setItem('accessToken', result.accessToken);
+
+    navigate(paths.homePage);
+  }
+
+  const logoutHandler = () => {
+    setAuth({});
+
+    sessionStorage.removeItem('accessToken');
+
+    navigate(paths.homePage);
   }
 
   const values = {
     loginSubmitHandler,
     registerSubmitHandler,
+    logoutHandler,
     username: auth.username,
     email: auth.email,
     isAuthenticated: !!auth.email,
@@ -52,6 +65,7 @@ function App() {
           <Route path={paths.login} element={<Login/>}/>
           <Route path={paths.register} element={<Register/>}/>
           <Route path={paths.details} element={<Details/>}/>
+          <Route path={paths.logout} element={<Logout/>}/>
         </Routes>
       </AuthContext.Provider>
     </div>
