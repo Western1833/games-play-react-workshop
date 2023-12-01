@@ -13,7 +13,10 @@ import AuthContext from "./contexts/authContext.js";
 import * as authService from '../src/services/authService.js';
 
 function App() {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState(() => {
+    localStorage.removeItem('accessToken');
+    return {};
+  });
   const navigate = useNavigate();
 
   const loginSubmitHandler = async (values) => {
@@ -21,7 +24,7 @@ function App() {
 
     setAuth(result);
 
-    sessionStorage.setItem('accessToken', result.accessToken);
+    localStorage.setItem('accessToken', result.accessToken);
 
     navigate(paths.homePage);
   }
@@ -31,7 +34,7 @@ function App() {
 
     setAuth(result);
 
-    sessionStorage.setItem('accessToken', result.accessToken);
+    localStorage.setItem('accessToken', result.accessToken);
 
     navigate(paths.homePage);
   }
@@ -39,7 +42,7 @@ function App() {
   const logoutHandler = () => {
     setAuth({});
 
-    sessionStorage.removeItem('accessToken');
+    localStorage.removeItem('accessToken');
 
     navigate(paths.homePage);
   }

@@ -6,7 +6,7 @@ function buildOptions(data){
         options.headers = {'content-type': 'application-json'}
     }
 
-    const token = sessionStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken');
 
     if(token){
         options.headers = {
