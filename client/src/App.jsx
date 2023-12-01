@@ -9,12 +9,14 @@ import { paths } from "./utils/apis.js";
 import Details from "./components/Details/Details.jsx";
 import { useState } from "react";
 import AuthContext from "./contexts/authContext.js";
+import * as authService from '../src/services/authService.js';
 
 function App() {
   const [auth, setAuth] = useState({});
 
-  const loginSubmitHandler = (values) => {
-    console.log(values);
+  const loginSubmitHandler = async (values) => {
+    const result = await authService.login(values.email, values.password);
+    console.log(result);
   }
 
   return (
