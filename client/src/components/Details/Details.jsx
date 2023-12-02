@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as gameService from '../../services/gameService.js';
 import { create, getAll } from "../../services/commentService.js";
+import AuthContext from "../../contexts/authContext.js";
 
 export default function Details() {
+    const {email} = useContext(AuthContext);
     const {gameId} = useParams();
     const [game, setGame] = useState({});
     const [comments, setComments] = useState([]);
@@ -20,11 +22,12 @@ export default function Details() {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
+        const commentText = formData.get('comment');
 
-        let newComment = await create(gameId,
-            formData.get('username'),
-            formData.get('comment')
-            );
+        let newComment = await create(gameId, commentText);
+
+        // Include both email and text properties in the new comment object
+        newComment = { ...newComment, owner: { email }, text: commentText };
 
         setComments(state => [...state, newComment]);
         return newComment;
@@ -50,9 +53,9 @@ export default function Details() {
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul> 
-                        {comments.map(({_id, username, text}) => (
+                        {comments.map(({_id, text, owner: {email}}) => (
                             <li className="comment" key={_id}>
-                                <p>{username}: {text}</p>
+                                <p>{email}: {text}</p>
                             </li>
                         ))}                       
                     </ul> 
@@ -70,8 +73,6 @@ export default function Details() {
             <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
             <article className="create-comment">
                 <form className="form" onSubmit={addCommentHandler}>
-                    <label>Username:</label>
-                    <input type="text" name="username" placeholder="username" />
                     <label>Add new comment:</label>
                     <textarea name="comment" placeholder="Comment......"></textarea>
                     <input className="btn submit" type="submit" value="Add Comment"/>
